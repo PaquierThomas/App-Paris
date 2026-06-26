@@ -34,8 +34,8 @@ Ce projet consiste à développer une application Web de gestion de paris sporti
 * **Livrable :** Un fichier `docker-compose.yml` configuré pour lancer un conteneur PostgreSQL. `FAIT`
 
 ### 1.2 Schéma et Migrations (Alembic & SQLAlchemy)
-* **Objectif :** Déclarer les modèles Python et gérer les versions de la base de données sans utiliser le mode automatique destructif (`create_all`).
-* **Livrable :** Un environnement Alembic initialisé générant le premier fichier de migration pour créer les tables nécessaires, appliqué avec succès sur le conteneur PostgreSQL.
+* **Objectif :** Déclarer les modèles Python et gérer les versions de la base de données sans utiliser le mode automatique destructif (`create_all`). `FAIT`
+* **Livrable :** Un environnement Alembic initialisé générant le premier fichier de migration pour créer les tables nécessaires, appliqué avec succès sur le conteneur PostgreSQL. `FAIT`
 
 ### 1.3 Le script de récolte et de stockage (Python & API Externe)
 * **Objectif :** Automatiser la récupération des événements sportifs.
