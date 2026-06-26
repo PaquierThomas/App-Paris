@@ -30,8 +30,8 @@ Ce projet consiste à développer une application Web de gestion de paris sporti
 *L'objectif de cette phase est de mettre en place l'environnement de stockage, d'initialiser le système de gestion de versions de la base de données, et de créer le script Python capable de la populer avec des données réelles.*
 
 ### 1.1 L'environnement de données (Docker & Postgres)
-* **Objectif :** Initialiser la base de données de manière isolée.
-* **Livrable :** Un fichier `docker-compose.yml` configuré pour lancer un conteneur PostgreSQL.
+* **Objectif :** Initialiser la base de données de manière isolée. `FAIT`
+* **Livrable :** Un fichier `docker-compose.yml` configuré pour lancer un conteneur PostgreSQL. `FAIT`
 
 ### 1.2 Schéma et Migrations (Alembic & SQLAlchemy)
 * **Objectif :** Déclarer les modèles Python et gérer les versions de la base de données sans utiliser le mode automatique destructif (`create_all`).

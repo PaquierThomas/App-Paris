@@ -1,0 +1,16 @@
+services:
+  db:
+    image: timescale/timescaledb:latest-pg18
+    container_name: timescaledb
+    restart: unless-stopped
+    ports:
+      - "5433:5432"
+    environment:
+      POSTGRES_PASSWORD: strongpassword123
+      POSTGRES_USER: tsadmin
+      POSTGRES_DB: tsdb
+    volumes:
+      - pgdata:/var/lib/timescaledb_data/data
+
+volumes:
+  pgdata:
