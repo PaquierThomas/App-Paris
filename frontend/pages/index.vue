@@ -3,7 +3,6 @@ const { data, status, error } = await useFetch('http://localhost:8000/', {
   lazy: true
 })
 
-const { data } = await get('/mesures')
 </script>
 
 <template>
