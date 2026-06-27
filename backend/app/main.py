@@ -1,5 +1,6 @@
 from fastapi import FastAPI, Depends
 from sqlalchemy.orm import Session
+from sqlalchemy import text
 from scalar_fastapi import get_scalar_api_reference
 from datetime import datetime
 from typing import List
@@ -8,12 +9,11 @@ from pydantic import BaseModel
 from app.database import get_db, engine
 from app.models import Mesure, Base
 
-# Crée la table automatiquement si elle n'existe pas
 Base.metadata.create_all(bind=engine)
 
 app = FastAPI(title="Mon API", docs_url=None)
 
-# --- Schéma Pydantic ---
+# --- Schémas Pydantic ---
 class MesureSchema(BaseModel):
     id: int
     capteur: str
@@ -23,10 +23,25 @@ class MesureSchema(BaseModel):
     class Config:
         from_attributes = True
 
+class ClassementSchema(BaseModel):
+    equipe: str
+    joues: int
+    victoires: int
+    nuls: int
+    defaites: int
+    points: int
+
 # --- Routes ---
 @app.get("/")
 def racine():
     return {"message": "API operationnelle"}
+
+@app.get("/classement", response_model=List[ClassementSchema])
+def get_classement(db: Session = Depends(get_db)):
+    result = db.execute(
+        text("SELECT equipe, joues, victoires, nuls, defaites, points FROM coupe_du_monde.classement_cdm")
+    ).fetchall()
+    return [dict(row._mapping) for row in result]
 
 @app.get("/mesures", response_model=List[MesureSchema])
 def get_mesures(db: Session = Depends(get_db)):
