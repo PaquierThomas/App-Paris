@@ -14,6 +14,8 @@ def classement_coupe_du_monde():
         yield {
             "équipe domicile": match["homeTeam"]["shortName"],
             "équipe extérieure": match["awayTeam"]["shortName"],
+            "équipe extérieure id": match["awayTeam"]["id"],
             "date": match["utcDate"],
-            "compétition": match["competition"]["name"]
+            "compétition": match["competition"]["name"],
+            "stage": match["stage"],
         }
