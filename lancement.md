@@ -2,11 +2,7 @@
 
 cd backend
 source .venv/Scripts/activate
-
-## puis faire
-
 uvicorn app.main:app --reload
 
 
-
-### 
+## puis faire

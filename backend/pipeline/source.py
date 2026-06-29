@@ -18,3 +18,4 @@ def classement_coupe_du_monde():
             "defaites": team["intLoss"],
             "points": team["intPoints"],
         }
+

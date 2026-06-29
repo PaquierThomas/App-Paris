@@ -2,19 +2,20 @@ import requests
 import pandas as pd
 import json
 
-reponse = requests.get("https://www.thesportsdb.com/api/v1/json/123/lookuptable.php?l=4429&s=2026")
-data = reponse.json()
+uri = 'https://api.football-data.org/v4/matches'
+headers = {'X-Auth-Token': '2c3979682d2644eca41f45ac67475191'}
 
-team_data = []
-for team in data["table"]:
-    team_data.append([
-        team["strTeam"],
-        team["intPlayed"],
-        team["intWin"],
-        team["intDraw"],
-        team["intLoss"],
-        team["intPoints"],
+response = requests.get(uri, headers=headers)
+
+match_data = []
+for match in response.json()['matches']:
+    match_data.append([
+        match["competition"]["name"],
+        match["homeTeam"]["shortName"],
+        match["awayTeam"]["shortName"],
+        match["season"]["startDate"],
+        match["season"]["endDate"],
     ])
 
-df = pd.DataFrame(team_data, columns=["équipe", "joues", "victoires", "nuls", "defaites", "points"])
+df = pd.DataFrame(match_data, columns=["compétition","équipe domicile", "équipe extérieure", "date début saison", "date fin saison"])
 print(df)
