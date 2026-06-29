@@ -3,19 +3,17 @@ import requests
 
 @dlt.resource(name="classement_cdm", write_disposition="replace")
 def classement_coupe_du_monde():
-    url = "https://www.thesportsdb.com/api/v1/json/123/lookuptable.php?l=4429&s=2026"
-    response = requests.get(url)
+    url = "https://api.football-data.org/v4/matches"
+    headers = {"X-Auth-Token": "2c3979682d2644eca41f45ac67475191"}
+    response = requests.get(url, headers=headers)
     response.raise_for_status()
     
     data = response.json()
     # À toi : inspecte data, trouve la bonne clé, et yield les éléments
-    for team in data["table"]:
+    for match in data["matches"]:
         yield {
-            "equipe": team["strTeam"],
-            "joues": team["intPlayed"],
-            "victoires": team["intWin"],
-            "nuls": team["intDraw"],
-            "defaites": team["intLoss"],
-            "points": team["intPoints"],
+            "équipe domicile": match["homeTeam"]["shortName"],
+            "équipe extérieure": match["awayTeam"]["shortName"],
+            "date": match["utcDate"],
+            "compétition": match["competition"]["name"]
         }
-
