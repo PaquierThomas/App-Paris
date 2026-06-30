@@ -38,8 +38,8 @@ Ce projet consiste à développer une application Web de gestion de paris sporti
 * **Livrable :** Un environnement Alembic initialisé générant le premier fichier de migration pour créer les tables nécessaires, appliqué avec succès sur le conteneur PostgreSQL. `FAIT`
 
 ### 1.3 Le script de récolte et de stockage (Python & API Externe)
-* **Objectif :** Automatiser la récupération des événements sportifs. 
-* **Livrable :** Un script Python autonome utilisant la bibliothèque `requests` pour interroger l'API publique *TheSportsDB*. Les données récupérées (matchs, scores actuels, statuts des matchs) doivent être insérées dans la base PostgreSQL.
+* **Objectif :** Automatiser la récupération des événements sportifs. `FAIT`
+* **Livrable :** Un script Python autonome utilisant la bibliothèque `requests` pour interroger l'API publique *TheSportsDB*. Les données récupérées (matchs, scores actuels, statuts des matchs) doivent être insérées dans la base PostgreSQL. `FAIT`
 
 ---
 

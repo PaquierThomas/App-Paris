@@ -1,5 +1,5 @@
 import dlt
-from source import classement_coupe_du_monde
+from source import coupe_du_monde
 
 
 pipeline = dlt.pipeline(
@@ -11,5 +11,5 @@ pipeline = dlt.pipeline(
 )
 
 if __name__ == "__main__":
-    load_info = pipeline.run(classement_coupe_du_monde())
+    load_info = pipeline.run(coupe_du_monde())
     print(load_info)

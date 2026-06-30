@@ -1,7 +1,7 @@
 import schedule
 import time
 import dlt
-from source import classement_coupe_du_monde
+from source import coupe_du_monde
 
 def run_pipeline():
     print("🔄 Extraction en cours...")
@@ -12,7 +12,7 @@ def run_pipeline():
         ),
         dataset_name="coupe_du_monde",
     )
-    load_info = pipeline.run(classement_coupe_du_monde())
+    load_info = pipeline.run(coupe_du_monde())
     print(f"✅ Terminé : {load_info}")
 
 if __name__ == "__main__":
