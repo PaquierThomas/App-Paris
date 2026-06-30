@@ -23,6 +23,12 @@ class MesureSchema(BaseModel):
     class Config:
         from_attributes = True
 
+class ProchainMatchSchema(BaseModel):
+    equipe_domicile: str
+    equipe_exterieure: str
+    date: datetime
+    stage: str
+
 class ClassementSchema(BaseModel):
     equipe: str
     joues: int
@@ -35,6 +41,16 @@ class ClassementSchema(BaseModel):
 @app.get("/")
 def racine():
     return {"message": "API operationnelle"}
+
+
+
+@app.get('/prochains_matchs', response_model=List[ProchainMatchSchema])
+def get_prochains_matchs(db: Session = Depends(get_db)):
+    result = db.execute(
+        text("SELECT equipe_domicile, equipe_exterieure, date, stage FROM coupe_du_monde.prochains_matchs")
+    ).fetchall()
+    return [dict(row._mapping) for row in result]
+
 
 @app.get("/classement", response_model=List[ClassementSchema])
 def get_classement(db: Session = Depends(get_db)):
