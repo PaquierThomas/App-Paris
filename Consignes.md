@@ -50,7 +50,7 @@ Ce projet consiste à développer une application Web de gestion de paris sporti
 ### 2.1 Création des endpoints de lecture, d'écriture et de clôture
 * **Objectif :** Rendre les données accessibles et implémenter la logique métier du calcul des paris.
 * **Livrables :** Quatre routes principales avec validation stricte des données entrantes (via Pydantic) :
-    * `GET /matches` : Lit la base PostgreSQL et renvoie la liste des matchs.
+    * `GET /matches` : Lit la base PostgreSQL et renvoie la liste des matchs. `FAIT`
     * `POST /bets` : Reçoit un pronostic (pseudo, identifiant du match, choix, mise) et l'insère en base de données avec le statut par défaut `En cours`.
     * `GET /bets` : Renvoie l'historique de tous les paris enregistrés.
     * `POST /matches/settle` : Réinterroge l'API externe pour obtenir les scores finaux, clôture les matchs et met à jour le statut des paris concernés (`Gagné` ou `Perdu`).

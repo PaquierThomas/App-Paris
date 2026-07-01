@@ -7,7 +7,7 @@ from typing import List
 from pydantic import BaseModel
 
 from app.database import get_db, engine
-from app.models import Mesure, Base
+from app.models import Mesure, Bets, Base
 
 Base.metadata.create_all(bind=engine)
 
@@ -24,6 +24,7 @@ class MesureSchema(BaseModel):
         from_attributes = True
 
 class ProchainMatchSchema(BaseModel):
+    id: int
     equipe_domicile: str
     equipe_exterieure: str
     date: datetime
@@ -37,17 +38,51 @@ class ClassementSchema(BaseModel):
     defaites: int
     points: int
 
+
+class BetsSchema(BaseModel):
+    id: int
+    pseudo: str
+    match_id: int
+    choix: str
+    mise: float
+    statut: str
+
+class BetCreate(BaseModel):
+    pseudo: str
+    match_id: int
+    choix: str
+    mise: float
+
 # --- Routes ---
 @app.get("/")
 def racine():
     return {"message": "API operationnelle"}
 
 
+@app.get("/bets", response_model=List[BetsSchema])
+def get_bets(db: Session = Depends(get_db)):
+    return db.query(Bets).all()
+
+
+@app.post("/bets", response_model=BetsSchema)
+def create_bet(bet: BetCreate, db: Session = Depends(get_db)):
+    db_bet = Bets(
+        pseudo=bet.pseudo,
+        match_id=bet.match_id,
+        choix=bet.choix,
+        mise=bet.mise,
+        statut="En cours"
+    )
+    db.add(db_bet)
+    db.commit()
+    db.refresh(db_bet)
+    return db_bet
+
 
 @app.get('/prochains_matchs', response_model=List[ProchainMatchSchema])
 def get_prochains_matchs(db: Session = Depends(get_db)):
     result = db.execute(
-        text("SELECT equipe_domicile, equipe_exterieure, date, stage FROM coupe_du_monde.prochains_matchs")
+        text("SELECT id, equipe_domicile, equipe_exterieure, date, stage FROM coupe_du_monde.prochains_matchs")
     ).fetchall()
     return [dict(row._mapping) for row in result]
 

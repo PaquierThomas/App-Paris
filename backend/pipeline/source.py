@@ -11,6 +11,7 @@ def prochains_matchs():
     data = response.json()
     for match in data["matches"]:
         yield {
+            "id": match["id"],
             "equipe_domicile": match["homeTeam"]["shortName"],
             "equipe_exterieure": match["awayTeam"]["shortName"],
             "date": match["utcDate"],

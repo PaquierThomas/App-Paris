@@ -10,4 +10,15 @@ class Mesure(Base):
     horodatage = Column(DateTime)
 
 
+class Bets(Base):
+    __tablename__ = "bets"
+
+    id         = Column(Integer, primary_key=True)
+    pseudo     = Column(String)
+    match_id   = Column(Integer)
+    choix      = Column(String)
+    mise       = Column(Float)
+    statut     = Column(String) 
+
+
     
