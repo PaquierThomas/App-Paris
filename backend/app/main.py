@@ -78,6 +78,28 @@ def create_bet(bet: BetCreate, db: Session = Depends(get_db)):
     db.refresh(db_bet)
     return db_bet
 
+@app.post("/bets/settle")
+def settle_bets(db: Session = Depends(get_db)):
+
+    bets = db.query(Bets).filter(Bets.statut == "En cours").all()
+
+    for bet in bets:
+        result = db.execute(
+             text("SELECT gagnant FROM coupe_du_monde.matchs_termines WHERE id = :match_id").params(match_id=bet.match_id)
+        ).fetchone()
+
+        if result is None:
+            continue
+        if bet.choix == result.gagnant:
+            bet.statut = "Gagné"
+        else:
+            bet.statut = "Perdu"
+        
+    db.commit()
+    return {"message": f"Les paris ont été réglés. {len(bets)} paris mis à jour."}
+
+
+
 
 @app.get('/prochains_matchs', response_model=List[ProchainMatchSchema])
 def get_prochains_matchs(db: Session = Depends(get_db)):

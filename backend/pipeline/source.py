@@ -45,10 +45,49 @@ def classement_coupe_du_monde():
                 "buts_encaissés": team_entry['goalsAgainst'],
             }
 
+@dlt.resource(name="matchs_termines", write_disposition="replace")
+def matchs_termines():
+    url = "https://api.football-data.org/v4/competitions/WC/matches?status=FINISHED"
+    headers = {'X-Auth-Token': '2c3979682d2644eca41f45ac67475191'}
+    response = requests.get(url, headers=headers)
+    response.raise_for_status()
+    data = response.json()
+
+
+
+    for match in data["matches"]:
+        home = match["homeTeam"]["name"]
+        away = match["awayTeam"]["name"]
+        winner_code = match["score"]["winner"]
+
+        if winner_code == "HOME_TEAM":
+            winner = home
+        elif winner_code == "AWAY_TEAM":
+            winner = away
+        elif winner_code == "DRAW":
+            winner = "Match nul"
+        else:
+            winner = "Inconnu"
+
+        yield {
+            "id": match["id"],
+            "competition": data["competition"]["name"],
+            "stade_competition": match["stage"],
+            "groupe": match["group"],
+            "date": match["utcDate"],
+            "equipe_domicile": home,
+            "equipe_exterieure": away,
+            "buts_domicile": match["score"]["fullTime"]["home"],
+            "buts_exterieur": match["score"]["fullTime"]["away"],
+            "gagnant": winner,
+            "statut": match["status"],
+        }
+
 
 @dlt.source
 def coupe_du_monde():
     return [
         prochains_matchs(),
         classement_coupe_du_monde(),
+        matchs_termines()
     ]

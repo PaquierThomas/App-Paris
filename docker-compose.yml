@@ -6,11 +6,13 @@ services:
     ports:
       - "5433:5432"
     environment:
-      POSTGRES_PASSWORD: strongpassword123
-      POSTGRES_USER: tsadmin
+      PGDATA: /pgdata/data
       POSTGRES_DB: tsdb
+      POSTGRES_USER: tsadmin
+      POSTGRES_PASSWORD: strongpassword123
     volumes:
-      - pgdata:/var/lib/timescaledb_data/data
+      - timescaledb_data:/pgdata
 
 volumes:
-  pgdata:
+  timescaledb_data:
+    name: timescaledb_data
