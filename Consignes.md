@@ -51,13 +51,13 @@ Ce projet consiste à développer une application Web de gestion de paris sporti
 * **Objectif :** Rendre les données accessibles et implémenter la logique métier du calcul des paris.
 * **Livrables :** Quatre routes principales avec validation stricte des données entrantes (via Pydantic) :
     * `GET /matches` : Lit la base PostgreSQL et renvoie la liste des matchs. `FAIT`
-    * `POST /bets` : Reçoit un pronostic (pseudo, identifiant du match, choix, mise) et l'insère en base de données avec le statut par défaut `En cours`.
-    * `GET /bets` : Renvoie l'historique de tous les paris enregistrés.
-    * `POST /matches/settle` : Réinterroge l'API externe pour obtenir les scores finaux, clôture les matchs et met à jour le statut des paris concernés (`Gagné` ou `Perdu`).
+    * `POST /bets` : Reçoit un pronostic (pseudo, identifiant du match, choix, mise) et l'insère en base de données avec le statut par défaut `FAIT`
+    * `GET /bets` : Renvoie l'historique de tous les paris enregistrés. `FAIT`
+    * `POST /matches/settle` : Réinterroge l'API externe pour obtenir les scores finaux, clôture les matchs et met à jour le statut des paris concernés (`Gagné` ou `Perdu`). `FAIT`
 
 ### 2.2 Documentation Auto-générée avec `scalar-fastapi`
-* **Objectif :** Remplacer l'interface Swagger par défaut de FastAPI par Scalar pour offrir une documentation interactive et un client de test d'API plus esthétique et professionnel.
-* **Livrable :** Une route `/scalar` exposant l'interface HTML de Scalar permettant de visualiser et de tester en direct les 4 endpoints.
+* **Objectif :** Remplacer l'interface Swagger par défaut de FastAPI par Scalar pour offrir une documentation interactive et un client de test d'API plus esthétique et professionnel. `FAIT`
+* **Livrable :** Une route `/scalar` exposant l'interface HTML de Scalar permettant de visualiser et de tester en direct les 4 endpoints. `FAIT`
 
 ---
 

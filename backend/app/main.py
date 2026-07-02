@@ -11,7 +11,16 @@ from app.models import Mesure, Bets, Base
 
 Base.metadata.create_all(bind=engine)
 
+
 app = FastAPI(title="Mon API", docs_url=None)
+from fastapi.middleware.cors import CORSMiddleware
+
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=["http://localhost:3000"],
+    allow_methods=["*"],
+    allow_headers=["*"],
+)
 
 # --- Schémas Pydantic ---
 class MesureSchema(BaseModel):
